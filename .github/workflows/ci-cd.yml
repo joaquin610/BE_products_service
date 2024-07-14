@@ -68,7 +68,7 @@ jobs:
             -Dsonar.report.export.format=html
       
       - name: List files in target/sonar-report
-        run: ls -R target/sonar-report
+        run: ls -R target
       
       - name: Publish SonarCloud HTML Report
         if: always()
