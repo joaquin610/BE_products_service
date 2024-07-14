@@ -66,7 +66,10 @@ jobs:
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
             -Dsonar.report.export.path=target/sonar-report \
             -Dsonar.report.export.format=html
-
+      
+      - name: List files in target/sonar-report
+        run: ls -R target/sonar-report
+      
       - name: Publish SonarCloud HTML Report
         if: always()
         uses: actions/upload-artifact@v2
