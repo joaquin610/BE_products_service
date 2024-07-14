@@ -36,6 +36,8 @@ jobs:
     needs: build
     # if: github.ref == 'refs/heads/main'
     
+
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -64,11 +66,13 @@ jobs:
       env:
         ECR_REPOSITORY: products-service-repo
         IMAGE_TAG: ${{ github.sha }}
+        EXECUTION_ROLE_ARN: ${{ secrets.ECS_EXECUTION_ROLE_ARN }}
       run: |
         TASK_DEF=$(cat <<EOF
         {
           "family": "products-service",
           "networkMode": "awsvpc",
+          "executionRoleArn": "$EXECUTION_ROLE_ARN",
           "containerDefinitions": [
             {
               "name": "app",
@@ -101,4 +105,3 @@ jobs:
       run: |
         TASK_FAMILY="products-service"
         REVISION=$(aws ecs describe-task-definition --task-definition $TASK_FAMILY | jq .taskDefinition.revision)
-        aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --force-new-deployment --task-definition $TASK_FAMILY:$REVISION
