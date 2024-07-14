@@ -75,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sonarcloud-html-report
-          path: target/sonar-report
+          path: target/site/jacoco
 
   cd:
     runs-on: ubuntu-latest
