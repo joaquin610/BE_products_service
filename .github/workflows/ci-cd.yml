@@ -75,14 +75,14 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const url = '${{ steps.sonar-url.outputs.url }}';
-            const context = github.context;
-            const pullRequestNumber = context.payload.pull_request.number;
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+            const sonarUrl = '${{ steps.sonar-url.outputs.url }}';
+            const ghContext = github.context;
+            const pullRequestNumber = ghContext.payload.pull_request.number;
+            await github.rest.issues.createComment({
+              owner: ghContext.repo.owner,
+              repo: ghContext.repo.repo,
               issue_number: pullRequestNumber,
-              body: `SonarCloud analysis complete. [View report](${url})`
+              body: `SonarCloud analysis complete. [View report](${sonarUrl})`
             });
   
   test:
