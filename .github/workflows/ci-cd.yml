@@ -67,7 +67,7 @@ jobs:
 
       - name: Get SonarCloud project URL
         id: sonar-url
-        run: echo "::set-output name=url::https://sonarcloud.io/dashboard?id=joaquin610_BE_service_service"
+        run: echo "::set-output name=url::https://sonarcloud.io/dashboard?id=joaquin610_BE_products_service"
 
       - name: Add comment to PR
         if: github.event_name == 'pull_request'
@@ -82,6 +82,9 @@ jobs:
               repo: context.repo.repo,
               issue_number: pullRequestNumber,
               body: `SonarCloud analysis complete. [View report](${sonarUrl})`
+            }).catch((error) => {
+              console.log(error);
+              process.exit(1);
             });
   
   test:
