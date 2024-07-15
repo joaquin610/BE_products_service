@@ -51,7 +51,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # Command to install your dependencies, e.g. npm install, mvn install, etc.
           mvn install
 
       - name: Conditional SonarCloud analysis
@@ -67,13 +66,13 @@ jobs:
 
       - name: Get SonarCloud project URL
         id: sonar-url
-        run: echo "::set-output name=url::https://sonarcloud.io/dashboard?id=joaquin610_FE_react"
+        run: echo "::set-output name=url::https://sonarcloud.io/dashboard?id=joaquin610_BE_products_service"
 
       - name: Add comment to PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GI_TOKEN }}
           script: |
             const sonarUrl = '${{ steps.sonar-url.outputs.url }}';
             const ghContext = github.context;
