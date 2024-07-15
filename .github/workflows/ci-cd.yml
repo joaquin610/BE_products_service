@@ -63,14 +63,16 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io/ \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.java.binaries=target/classes \
-            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+            -Dsonar.report.export.path=target/sonar-report \
+            -Dsonar.report.export.format=html
+      
       - name: Publish SonarCloud HTML Report
-        if: always() # Siempre publica el informe, incluso si falla el análisis
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: sonarcloud-html-report
-          path: target/sonar-report
+          path: target/site/jacoco
   
   test:
     runs-on: ubuntu-latest
