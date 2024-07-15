@@ -51,6 +51,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # Command to install your dependencies, e.g. npm install, mvn install, etc.
           mvn install
 
       - name: Conditional SonarCloud analysis
@@ -59,7 +60,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn clean verify sonar:sonar \
-          -Dsonar.projectKey=joaquin610_FE_react \
+          -Dsonar.projectKey=joaquin610_BE_products_service \
           -Dsonar.organization=joaquin610 \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
@@ -75,14 +76,17 @@ jobs:
           github-token: ${{ secrets.GI_TOKEN }}
           script: |
             const sonarUrl = '${{ steps.sonar-url.outputs.url }}';
-            const ghContext = github.context;
-            const pullRequestNumber = ghContext.payload.pull_request.number;
-            await github.rest.issues.createComment({
-              owner: ghContext.repo.owner,
-              repo: ghContext.repo.repo,
-              issue_number: pullRequestNumber,
-              body: `SonarCloud analysis complete. [View report](${sonarUrl})`
-            });
+            if (context.payload.pull_request) {
+              const pullRequestNumber = context.payload.pull_request.number;
+              github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pullRequestNumber,
+                body: `SonarCloud analysis complete. [View report](${sonarUrl})`
+              });
+            } else {
+              console.log('No pull request found in context payload.');
+            }
   
   test:
     runs-on: ubuntu-latest
