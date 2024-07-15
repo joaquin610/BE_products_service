@@ -67,7 +67,7 @@ jobs:
 
       - name: Get SonarCloud project URL
         id: sonar-url
-        run: echo "::set-output name=url::https://sonarcloud.io/dashboard?id=joaquin610_BE_products_service"
+        run: echo "::set-output name=url::https://sonarcloud.io/dashboard?id=joaquin610_BE_service_service"
 
       - name: Add comment to PR
         if: github.event_name == 'pull_request'
@@ -76,17 +76,13 @@ jobs:
           github-token: ${{ secrets.GI_TOKEN }}
           script: |
             const sonarUrl = '${{ steps.sonar-url.outputs.url }}';
-            if (context.payload.pull_request) {
-              const pullRequestNumber = context.payload.pull_request.number;
-              github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pullRequestNumber,
-                body: `SonarCloud analysis complete. [View report](${sonarUrl})`
-              });
-            } else {
-              console.log('No pull request found in context payload.');
-            }
+            const pullRequestNumber = context.payload.pull_request.number;
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pullRequestNumber,
+              body: `SonarCloud analysis complete. [View report](${sonarUrl})`
+            });
   
   test:
     runs-on: ubuntu-latest
