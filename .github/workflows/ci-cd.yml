@@ -28,9 +28,6 @@ jobs:
       - name: Run tests
         run: mvn test
 
-      - name: Get SonarCloud Report URL
-        run: ./get_sonar_report_url.sh
-
   test:
     runs-on: ubuntu-latest
 
