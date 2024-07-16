@@ -66,9 +66,7 @@ jobs:
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
       - name: Extract SonarCloud Report URL
-        run: |
-          echo "SonarCloud analysis report is available at: \
-          https://sonarcloud.io/dashboard?id=joaquin610_BE_products_service"
+        run: echo "SonarCloud analysis report is available at: https://sonarcloud.io/dashboard?id=joaquin610_BE_products_service"
   test:
     runs-on: ubuntu-latest
 
