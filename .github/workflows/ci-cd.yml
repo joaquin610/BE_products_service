@@ -27,14 +27,15 @@ jobs:
 
       - name: Run tests
         run: mvn test
-      
-      - name: Make get_sonar_report_url.sh executable
-        run: chmod +x get_sonar_report_url.sh
+
 
   get_sonar_report:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Make get_sonar_report_url.sh executable
+        run: chmod +x get_sonar_report_url.sh
 
       - name: Get SonarCloud Report URL
         run: ./get_sonar_report_url.sh
