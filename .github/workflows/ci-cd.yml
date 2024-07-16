@@ -71,7 +71,7 @@ jobs:
   cd:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    needs: test
+    needs: sonarCloudReport
 
     steps:
       - name: Checkout code
