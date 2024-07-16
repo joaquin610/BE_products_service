@@ -33,6 +33,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Make get_sonar_report_url.sh executable
         run: chmod +x get_sonar_report_url.sh
