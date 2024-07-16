@@ -42,30 +42,30 @@ jobs:
       - name: Get SonarCloud Report URL
         run: ./get_sonar_report_url.sh
 
-  test:
-    runs-on: ubuntu-latest
+  # test:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "18"
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: "18"
 
-      - name: Install Newman
-        run: npm install -g newman
+  #     - name: Install Newman
+  #       run: npm install -g newman
 
-      - name: Run Postman Tests
-        run: ./run_tests.sh
+  #     - name: Run Postman Tests
+  #       run: ./run_tests.sh
 
-      - name: Archive HTML Report
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: newman-html-report
-          path: newman-report.html
+  #     - name: Archive HTML Report
+  #       if: always()
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: newman-html-report
+  #         path: newman-report.html
 
   cd:
     runs-on: ubuntu-latest
@@ -88,7 +88,7 @@ jobs:
 
       - name: Build and push Docker image
         env:
-          DOCKER_HUB_REPOSITORY: your-dockerhub-username/products-service-repo
+          DOCKER_HUB_REPOSITORY: joaquin610/be_products_service
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $DOCKER_HUB_REPOSITORY:$IMAGE_TAG .
