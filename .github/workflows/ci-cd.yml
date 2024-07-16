@@ -55,7 +55,7 @@ jobs:
 
       - name: Run SonarCloud Scan
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GI_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
@@ -66,10 +66,8 @@ jobs:
           -Dsonar.java.binaries=target/classes \
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
-      - name: Extract SonarCloud Report URL
-        run: |
-          echo "SonarCloud analysis report is available at: \
-          https://sonarcloud.io/dashboard?id=joaquin610_BE_products_service"
+      - name: Get SonarCloud Report URL
+        run: ./get_sonar_report_url.sh
 
   test:
     runs-on: ubuntu-latest
