@@ -88,7 +88,7 @@ jobs:
 
       - name: Build and push Docker image
         env:
-          DOCKER_HUB_REPOSITORY: joaquin610/be_products_service
+          DOCKER_HUB_REPOSITORY: banchero/be_products_service
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $DOCKER_HUB_REPOSITORY:$IMAGE_TAG .
@@ -97,7 +97,7 @@ jobs:
       - name: Register new task definition
         id: register-task
         env:
-          DOCKER_HUB_REPOSITORY: joaquin610/be_products_service
+          DOCKER_HUB_REPOSITORY: banchero/be_products_service
           IMAGE_TAG: ${{ github.sha }}
           EXECUTION_ROLE_ARN: ${{ secrets.ECS_EXECUTION_ROLE_ARN }}
         run: |
