@@ -56,8 +56,13 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install Newman
-        run: npm install -g newman
+      - name: Install Newman and HTML Reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-html
+
+      - name: Grant execution permission for run_tests.sh
+        run: chmod +x ./run_tests.sh
 
       - name: Run Postman Tests
         run: ./run_tests.sh
