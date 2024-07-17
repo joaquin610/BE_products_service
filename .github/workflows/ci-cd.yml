@@ -65,6 +65,9 @@ jobs:
       - name: Run Postman Tests
         run: ./run_tests.sh
 
+      - name: Print Newman Report to Logs
+        run: cat newman-report.html
+
       - name: Archive HTML Report
         if: always()
         uses: actions/upload-artifact@v2
