@@ -59,6 +59,9 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
+      - name: Grant execution permission for run_tests.sh
+        run: chmod +x ./run_tests.sh
+
       - name: Run Postman Tests
         run: ./run_tests.sh
 
